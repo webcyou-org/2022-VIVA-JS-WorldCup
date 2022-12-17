@@ -1,14 +1,11 @@
 <script setup lang="ts">
-const props = defineProps({
+const pos = defineProps({
     x: Number,
     y: Number,
 });
 </script>
 <template>
-    <div
-        class="ball"
-        :style="{ left: props.x + 'px', top: props.y + 'px' }"
-    ></div>
+    <div class="ball" :style="{ left: pos.x + 'px', top: pos.y + 'px' }"></div>
 </template>
 
 <style lang="scss" scoped>

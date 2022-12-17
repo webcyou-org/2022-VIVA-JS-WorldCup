@@ -5,9 +5,10 @@ import BallView from "./components/TheBall.vue";
 import GoalView from "./components/TheGoal.vue";
 
 import { ref, reactive, onMounted, onUnmounted } from "vue";
-import { isKey } from "./constant/key";
 import { Direction } from "./enums/Direction";
 import { initBuild } from "./utils/build";
+import { isKey } from "./utils/keyboard";
+
 const fps = 30;
 const innerWidth = ref(window.innerWidth);
 
@@ -47,47 +48,38 @@ gameLoop();
 onMounted(() => {
     window.addEventListener("keydown", (event) => {
         let code = event.code;
-        switch (code) {
-            case isKey.up:
-                state.direction |= Direction.UP;
-                break;
-            case isKey.right:
-                state.direction |= Direction.RIGHT;
-                break;
-            case isKey.down:
-                state.direction |= Direction.BOTTOM;
-                break;
-            case isKey.left:
-                state.direction |= Direction.LEFT;
-                break;
-        }
 
+        if (isKey({ key: "up", code })) {
+            state.direction |= Direction.UP;
+        } else if (isKey({ key: "right", code })) {
+            state.direction |= Direction.RIGHT;
+        } else if (isKey({ key: "down", code })) {
+            state.direction |= Direction.BOTTOM;
+        } else if (isKey({ key: "left", code })) {
+            state.direction |= Direction.LEFT;
+        }
         state.player.direction = state.direction;
 
-        if (code === isKey.shoot && !state.player.isDribble) {
+        if (isKey({ key: "shoot", code }) && !state.player.isDribble) {
             state.player.isShoot = true;
         }
     });
 
     window.addEventListener("keyup", (event) => {
         let code = event.code;
-        switch (code) {
-            case isKey.up:
-                state.direction &= ~Direction.UP;
-                break;
-            case isKey.right:
-                state.direction &= ~Direction.RIGHT;
-                break;
-            case isKey.down:
-                state.direction &= ~Direction.BOTTOM;
-                break;
-            case isKey.left:
-                state.direction &= ~Direction.LEFT;
-                break;
+
+        if (isKey({ key: "up", code })) {
+            state.direction &= ~Direction.UP;
+        } else if (isKey({ key: "right", code })) {
+            state.direction &= ~Direction.RIGHT;
+        } else if (isKey({ key: "down", code })) {
+            state.direction &= ~Direction.BOTTOM;
+        } else if (isKey({ key: "left", code })) {
+            state.direction &= ~Direction.LEFT;
         }
         state.player.direction = state.direction;
 
-        if (code === isKey.shoot && !state.player.isDribble) {
+        if (isKey({ key: "shoot", code }) && !state.player.isDribble) {
             state.player.shoot();
         }
     });
