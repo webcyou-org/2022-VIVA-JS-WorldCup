@@ -1,3 +1,9 @@
+import { GamePadCode } from "../constant/key";
+interface GameKeyProps {
+    code: number;
+    key: string;
+}
+
 const controllers: any = {};
 
 export const connectHandler = (e) => {
@@ -53,4 +59,21 @@ export const scanGamePads = () => {
             }
         }
     }
+};
+
+export const isGameKey = ({ code, key }: GameKeyProps): boolean => {
+    let isPressKey: boolean = false;
+
+    if (key === "up" && code === GamePadCode.UP) {
+        isPressKey = true;
+    } else if (key === "right" && code === GamePadCode.Right) {
+        isPressKey = true;
+    } else if (key === "down" && code === GamePadCode.Down) {
+        isPressKey = true;
+    } else if (key === "left" && code === GamePadCode.Left) {
+        isPressKey = true;
+    } else if (key === "shoot" && code === GamePadCode.X) {
+        isPressKey = true;
+    }
+    return isPressKey;
 };

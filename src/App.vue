@@ -7,12 +7,12 @@ import GoalView from "./components/TheGoal.vue";
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { Direction } from "./enums/Direction";
 import { initBuild } from "./utils/build";
-import { isKey } from "./utils/keyboard";
 import {
     gamePadUpdateStatus,
     disConnectHandler,
     connectHandler,
 } from "./utils/gamePad";
+import { changeDirection } from "./utils/direction";
 
 const fps = 30;
 const innerWidth = ref(window.innerWidth);
@@ -40,41 +40,19 @@ let update = () => {
 
     gamePadUpdateStatus((callback: any) => {
         if (callback.pressed) {
-            if (callback.num === 12) {
-                state.direction |= Direction.UP;
-            }
-            if (callback.num === 13) {
-                state.direction |= Direction.BOTTOM;
-            }
-            if (callback.num === 14) {
-                state.direction |= Direction.LEFT;
-            }
-            if (callback.num === 15) {
-                state.direction |= Direction.RIGHT;
-            }
-            if (callback.num === 0) {
-                state.player.isShoot = true;
-            }
+            changeDirection({
+                padType: "gamePad",
+                type: "press",
+                code: callback.num,
+                state,
+            });
         } else {
-            if (callback.num === 12) {
-                state.direction &= ~Direction.UP;
-            }
-            if (callback.num === 13) {
-                state.direction &= ~Direction.BOTTOM;
-            }
-            if (callback.num === 14) {
-                state.direction &= ~Direction.LEFT;
-            }
-            if (callback.num === 15) {
-                state.direction &= ~Direction.RIGHT;
-            }
-            if (
-                callback.num === 0 &&
-                state.player.isShoot &&
-                !state.player.isDribble
-            ) {
-                state.player.shoot();
-            }
+            changeDirection({
+                padType: "gamePad",
+                type: "release",
+                code: callback.num,
+                state,
+            });
         }
     });
     state.player.direction = state.direction;
@@ -92,37 +70,21 @@ gameLoop();
 
 onMounted(() => {
     window.addEventListener("keydown", (event) => {
-        let code = event.code;
-
-        if (isKey({ key: "up", code })) {
-            state.direction |= Direction.UP;
-        } else if (isKey({ key: "right", code })) {
-            state.direction |= Direction.RIGHT;
-        } else if (isKey({ key: "down", code })) {
-            state.direction |= Direction.BOTTOM;
-        } else if (isKey({ key: "left", code })) {
-            state.direction |= Direction.LEFT;
-        }
-        if (isKey({ key: "shoot", code }) && !state.player.isDribble) {
-            state.player.isShoot = true;
-        }
+        changeDirection({
+            padType: "keyboard",
+            type: "press",
+            code: event.code,
+            state,
+        });
     });
 
     window.addEventListener("keyup", (event) => {
-        let code = event.code;
-
-        if (isKey({ key: "up", code })) {
-            state.direction &= ~Direction.UP;
-        } else if (isKey({ key: "right", code })) {
-            state.direction &= ~Direction.RIGHT;
-        } else if (isKey({ key: "down", code })) {
-            state.direction &= ~Direction.BOTTOM;
-        } else if (isKey({ key: "left", code })) {
-            state.direction &= ~Direction.LEFT;
-        }
-        if (isKey({ key: "shoot", code }) && !state.player.isDribble) {
-            state.player.shoot();
-        }
+        changeDirection({
+            padType: "keyboard",
+            type: "release",
+            code: event.code,
+            state,
+        });
     });
 
     window.addEventListener("resize", () => {
