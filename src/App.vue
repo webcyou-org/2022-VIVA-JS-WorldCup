@@ -8,6 +8,11 @@ import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { Direction } from "./enums/Direction";
 import { initBuild } from "./utils/build";
 import { isKey } from "./utils/keyboard";
+import {
+    gamePadUpdateStatus,
+    disConnectHandler,
+    connectHandler,
+} from "./utils/gamePad";
 
 const fps = 30;
 const innerWidth = ref(window.innerWidth);
@@ -32,7 +37,47 @@ let update = () => {
     state.player.mainProcess();
     updateBalls();
     state.player.checkBallCollision(state.balls);
-    // updateStatus();
+
+    gamePadUpdateStatus((callback: any) => {
+        if (callback.pressed) {
+            if (callback.num === 12) {
+                state.direction |= Direction.UP;
+            }
+            if (callback.num === 13) {
+                state.direction |= Direction.BOTTOM;
+            }
+            if (callback.num === 14) {
+                state.direction |= Direction.LEFT;
+            }
+            if (callback.num === 15) {
+                state.direction |= Direction.RIGHT;
+            }
+            if (callback.num === 0) {
+                state.player.isShoot = true;
+            }
+        } else {
+            if (callback.num === 12) {
+                state.direction &= ~Direction.UP;
+            }
+            if (callback.num === 13) {
+                state.direction &= ~Direction.BOTTOM;
+            }
+            if (callback.num === 14) {
+                state.direction &= ~Direction.LEFT;
+            }
+            if (callback.num === 15) {
+                state.direction &= ~Direction.RIGHT;
+            }
+            if (
+                callback.num === 0 &&
+                state.player.isShoot &&
+                !state.player.isDribble
+            ) {
+                state.player.shoot();
+            }
+        }
+    });
+    state.player.direction = state.direction;
 };
 
 let updateBalls = () => {
@@ -58,8 +103,6 @@ onMounted(() => {
         } else if (isKey({ key: "left", code })) {
             state.direction |= Direction.LEFT;
         }
-        state.player.direction = state.direction;
-
         if (isKey({ key: "shoot", code }) && !state.player.isDribble) {
             state.player.isShoot = true;
         }
@@ -77,8 +120,6 @@ onMounted(() => {
         } else if (isKey({ key: "left", code })) {
             state.direction &= ~Direction.LEFT;
         }
-        state.player.direction = state.direction;
-
         if (isKey({ key: "shoot", code }) && !state.player.isDribble) {
             state.player.shoot();
         }
@@ -87,6 +128,9 @@ onMounted(() => {
     window.addEventListener("resize", () => {
         state.field.maxX = window.innerWidth - 50;
     });
+
+    window.addEventListener("gamepadconnected", connectHandler);
+    window.addEventListener("gamepaddisconnected", disConnectHandler);
 });
 </script>
 

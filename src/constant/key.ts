@@ -9,3 +9,11 @@ export enum KeyCode {
     D = "KeyD",
     X = "KeyX",
 }
+
+export enum GamePadCode {
+    UP = 12,
+    Right = 15,
+    Down = 13,
+    Left = 14,
+    X = 0,
+}
