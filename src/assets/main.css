@@ -1,0 +1,8 @@
+@import "./base.css";
+
+.gameHeaderView {
+    height: 60px;
+}
+.gameMainView {
+    position: relative;
+}
