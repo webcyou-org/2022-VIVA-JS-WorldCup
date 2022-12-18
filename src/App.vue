@@ -116,5 +116,9 @@ onMounted(() => {
         />
         <BallView :x="state.balls[0].x" :y="state.balls[0].y" />
     </div>
-    <GameFooter :power="state.player.shootPower" />
+    <GameFooter
+        :power="state.player.shootPower"
+        :direction="state.direction"
+        :isShoot="state.player.isShoot"
+    />
 </template>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
     power: Number;
+    direction: Number;
+    isShoot: boolean;
 }>();
 </script>
 <template>
@@ -15,16 +17,44 @@ const props = defineProps<{
         <div class="box controller">
             <div class="box cursor">
                 <ul class="list cursorList">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li
+                        :class="{
+                            active:
+                                direction == 1 ||
+                                direction == 3 ||
+                                direction == 9,
+                        }"
+                    ></li>
+                    <li
+                        :class="{
+                            active:
+                                direction == 4 ||
+                                direction == 12 ||
+                                direction == 6,
+                        }"
+                    ></li>
+                    <li
+                        :class="{
+                            active:
+                                direction == 2 ||
+                                direction == 3 ||
+                                direction == 6,
+                        }"
+                    ></li>
+                    <li
+                        :class="{
+                            active:
+                                direction == 8 ||
+                                direction == 12 ||
+                                direction == 9,
+                        }"
+                    ></li>
                 </ul>
             </div>
             <div class="box button">
                 <ul class="list buttonList">
                     <li></li>
-                    <li></li>
+                    <li :class="{ active: isShoot }"></li>
                     <li></li>
                     <li></li>
                 </ul>
@@ -93,6 +123,9 @@ const props = defineProps<{
             height: 18px;
             border: #000 4px solid;
             border-radius: 4px;
+            &.active {
+                background: rgb(18, 204, 246);
+            }
             &:nth-child(1) {
                 left: 0;
                 border-bottom: none;
@@ -125,6 +158,9 @@ const props = defineProps<{
             height: 20px;
             border: #000 4px solid;
             border-radius: 10px;
+            &.active {
+                background: rgb(18, 204, 246);
+            }
             &:nth-child(1) {
                 left: 0;
             }
