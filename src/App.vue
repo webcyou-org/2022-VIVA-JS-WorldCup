@@ -5,6 +5,7 @@ import PlayerView from "./components/ThePlayer.vue";
 // @ts-ignore
 import BallView from "./components/TheBall.vue";
 import GoalView from "./components/TheGoal.vue";
+import GameHeader from "./components/GameHeader.vue";
 
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { initBuild } from "./utils/build";
@@ -98,7 +99,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="gameHeaderView"></div>
+    <GameHeader />
     <div class="gameMainView">
         <GoalView />
         <FieldView />
