@@ -122,7 +122,11 @@ onMounted(() => {
             :y="state.player.y"
             :direction="state.player.lastDirection"
         />
-        <BallView :x="state.balls[0].x" :y="state.balls[0].y" />
+        <BallView
+            :x="state.balls[0].x"
+            :y="state.balls[0].y"
+            :frame="state.balls[0].currentFrame"
+        />
         <GoalAnime :isShow="state.isGoalAnime" />
     </div>
     <GameFooter

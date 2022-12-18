@@ -2,10 +2,18 @@
 const pos = defineProps<{
     x: Number;
     y: Number;
+    frame: number;
 }>();
 </script>
 <template>
-    <div class="ball" :style="{ left: pos.x + 'px', top: pos.y + 'px' }"></div>
+    <div
+        class="ball"
+        :style="{
+            left: pos.x + 'px',
+            top: pos.y + 'px',
+            transform: `rotate(-${pos.frame * 51}deg)`,
+        }"
+    ></div>
 </template>
 
 <style lang="scss" scoped>
@@ -18,6 +26,6 @@ const pos = defineProps<{
     box-sizing: border-box;
     background: url("../assets/ball.png");
     background-size: 20px;
-    box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.7);
+    // box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.7);
 }
 </style>

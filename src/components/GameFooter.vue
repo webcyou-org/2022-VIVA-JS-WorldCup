@@ -8,10 +8,10 @@ const props = defineProps<{
 <template>
     <div class="gameFooterView">
         <div class="box nav">
-            <p class="text">↑ : ArrowUp orKeyW</p>
-            <p class="text">→ : ArrowRight orKeyD</p>
-            <p class="text">↓ : ArrowDown orKeyS</p>
-            <p class="text">← : ArrowLeft orKeyA</p>
+            <p class="text">↑ : ArrowUp or KeyW</p>
+            <p class="text">→ : ArrowRight or KeyD</p>
+            <p class="text">↓ : ArrowDown or KeyS</p>
+            <p class="text">← : ArrowLeft or KeyA</p>
             <p class="text">shoot : KeyX</p>
         </div>
         <div class="box controller">

@@ -70,6 +70,7 @@ export class Ball {
             this.acceleration = 0;
             return;
         }
+        this.incrementCurrentFrame();
 
         switch (this.direction) {
             case Direction.RIGHT:
@@ -102,6 +103,15 @@ export class Ball {
                 break;
         }
         this.acceleration = this.acceleration * 0.75;
+    }
+
+    incrementCurrentFrame() {
+        this.currentFrame += Math.round(
+            (this.speed * this.acceleration) / this.frameCount
+        );
+        if (this.currentFrame > this.frameCount) {
+            this.currentFrame = 1;
+        }
     }
 
     isCollisions(): boolean {
