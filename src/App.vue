@@ -9,6 +9,8 @@ import GoalView from "./components/TheGoal.vue";
 import GameHeader from "./components/GameHeader.vue";
 // @ts-ignore
 import GameFooter from "./components/GameFooter.vue";
+// @ts-ignore
+import GoalAnime from "./components/GoalAnime.vue";
 
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { initBuild } from "./utils/build";
@@ -30,6 +32,7 @@ let state = reactive({
     player: buildObject.player,
     balls: [buildObject.ball],
     goal: buildObject.goal,
+    isGoalAnime: false,
 });
 
 const gameLoop = () => {
@@ -68,6 +71,7 @@ let updateBalls = () => {
         state.balls[i].mainProcess();
         state.balls[i].addGoalCallBack(() => {
             state.score++;
+            state.isGoalAnime = true;
         });
     }
 };
@@ -99,6 +103,10 @@ onMounted(() => {
         state.field.maxX = window.innerWidth - 50;
     });
 
+    window.addEventListener("animationend", (event) => {
+        if (state.isGoalAnime) state.isGoalAnime = false;
+    });
+
     window.addEventListener("gamepadconnected", connectHandler);
     window.addEventListener("gamepaddisconnected", disConnectHandler);
 });
@@ -115,6 +123,7 @@ onMounted(() => {
             :direction="state.player.lastDirection"
         />
         <BallView :x="state.balls[0].x" :y="state.balls[0].y" />
+        <GoalAnime :isShow="state.isGoalAnime" />
     </div>
     <GameFooter
         :power="state.player.shootPower"

@@ -314,7 +314,7 @@ export class Player {
         return isCollided;
     }
 
-    checkBallCollision(balls: Ball[]) {
+    checkBallCollision(balls: any) {
         if (this.isBallKeep) return;
 
         for (let i = 0; i < balls.length; i++) {

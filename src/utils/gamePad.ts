@@ -43,11 +43,7 @@ export const gamePadUpdateStatus = (fn: Function) => {
 };
 
 export const scanGamePads = () => {
-    const gamepads: any = navigator.getGamepads
-        ? navigator.getGamepads()
-        : navigator.webkitGetGamepads
-        ? navigator.webkitGetGamepads()
-        : [];
+    const gamepads: any = navigator.getGamepads ? navigator.getGamepads() : [];
     if (!gamepads) return;
 
     for (let i = 0; i < gamepads.length; i++) {
