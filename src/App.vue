@@ -5,7 +5,10 @@ import PlayerView from "./components/ThePlayer.vue";
 // @ts-ignore
 import BallView from "./components/TheBall.vue";
 import GoalView from "./components/TheGoal.vue";
+// @ts-ignore
 import GameHeader from "./components/GameHeader.vue";
+// @ts-ignore
+import GameFooter from "./components/GameFooter.vue";
 
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { initBuild } from "./utils/build";
@@ -63,6 +66,9 @@ let update = () => {
 let updateBalls = () => {
     for (let i = 0; i < state.balls.length; i++) {
         state.balls[i].mainProcess();
+        state.balls[i].addGoalCallBack(() => {
+            state.score++;
+        });
     }
 };
 
@@ -110,6 +116,5 @@ onMounted(() => {
         />
         <BallView :x="state.balls[0].x" :y="state.balls[0].y" />
     </div>
+    <GameFooter :power="state.player.shootPower" />
 </template>
-
-<style lang="scss" scoped></style>

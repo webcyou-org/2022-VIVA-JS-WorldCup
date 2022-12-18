@@ -89,20 +89,22 @@ export class Player {
     }
 
     shoot() {
-        let shootPower = Math.ceil(this.power / 10);
-        shootPower = shootPower > 5 ? 5 : shootPower;
         const direction =
             this.directionCommand.length > 0
                 ? this.directionCommand[0]
                 : this.lastDirection;
 
         if (this.isBallKeep) {
-            this.ball?.setDirection(direction, this.speed * shootPower);
+            this.ball?.setDirection(direction, this.speed * this.shootPower);
             this.ballRelease();
         }
 
         this.isShoot = false;
         this.power = 1;
+    }
+
+    get shootPower(): number {
+        return Math.ceil(this.power / 10) > 5 ? 5 : Math.ceil(this.power / 10);
     }
 
     isDribbleCommand(): boolean {

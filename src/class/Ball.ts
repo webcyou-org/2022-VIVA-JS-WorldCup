@@ -23,6 +23,7 @@ export class Ball {
     public frameCount: number = 7;
     public currentFrame: number = 1;
     public acceleration: number = 0;
+    public goalCallBack: Function = () => {};
 
     constructor({ x, y, r, width, height, speed }: BallProps) {
         this.x = x;
@@ -129,8 +130,13 @@ export class Ball {
             field.y + goal.y + goal.height > this.y + this.height
         ) {
             isGoal = true;
+            this.goalCallBack();
         }
         return isGoal;
+    }
+
+    addGoalCallBack(fn: Function) {
+        this.goalCallBack = fn;
     }
 
     get mapX() {
