@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import FieldView from "./components/TheField.vue";
+// @ts-ignore
 import PlayerView from "./components/ThePlayer.vue";
+// @ts-ignore
 import BallView from "./components/TheBall.vue";
 import GoalView from "./components/TheGoal.vue";
 
 import { ref, reactive, onMounted, onUnmounted } from "vue";
-import { Direction } from "./enums/Direction";
 import { initBuild } from "./utils/build";
 import {
     gamePadUpdateStatus,

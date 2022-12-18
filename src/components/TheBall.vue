@@ -16,7 +16,8 @@ const pos = defineProps({
     border-radius: 10px;
     border: #000 1px solid;
     box-sizing: border-box;
-    background-image: radial-gradient(at 30% 30%, #fff 40%, #bbb);
+    background: url("../assets/ball.png");
+    background-size: 20px;
     box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.7);
 }
 </style>
