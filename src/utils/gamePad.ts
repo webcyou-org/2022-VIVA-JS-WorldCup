@@ -6,7 +6,7 @@ interface GameKeyProps {
 
 const controllers: any = {};
 
-export const connectHandler = (e) => {
+export const connectHandler = (e: GamepadEvent) => {
     addGamePad(e.gamepad);
 };
 
@@ -14,7 +14,7 @@ export const addGamePad = (gamepad: Gamepad) => {
     controllers[gamepad.index] = gamepad;
 };
 
-export const disConnectHandler = (e) => {
+export const disConnectHandler = (e: GamepadEvent) => {
     delete controllers[e.gamepad.index];
 };
 

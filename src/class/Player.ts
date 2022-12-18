@@ -237,7 +237,7 @@ export class Player {
     dribbleMove(direction: number) {
         if (this.ball?.acceleration == 0) {
             const distance = Math.round(
-                this.getDistance(this.ball.getMapX(), this.ball.getMapY())
+                this.getDistance(this.ball.mapX, this.ball.mapY)
             );
 
             if (distance > this.getDistanceLine(direction)) {
@@ -262,7 +262,7 @@ export class Player {
 
     getDistance(x: number, y: number): number {
         return Math.sqrt(
-            Math.pow(x - this.getFootX(), 2) + Math.pow(y - this.getFootY(), 2)
+            Math.pow(x - this.footX, 2) + Math.pow(y - this.footY, 2)
         );
     }
 
@@ -303,8 +303,8 @@ export class Player {
         let isCollided = false;
         if (
             field.x > this.x ||
-            field.y > this.getFootY() ||
-            field.mapYBottomSide < this.getFootY() ||
+            field.y > this.footY ||
+            field.mapYBottomSide < this.footY ||
             field.maxX < this.x
         ) {
             isCollided = true;
@@ -333,11 +333,11 @@ export class Player {
         this.ball.setDirection(this.direction, this.speed);
     }
 
-    getFootX() {
+    get footX() {
         return Math.round(this.x + this.width / 2);
     }
 
-    getFootY() {
+    get footY() {
         return Math.round(this.y + this.height);
     }
 }

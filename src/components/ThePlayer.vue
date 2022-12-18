@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const props = defineProps({
-    x: Number,
-    y: Number,
-    direction: Number,
-});
+const props = defineProps<{
+    x: Number;
+    y: Number;
+    direction: Number;
+}>();
 </script>
 <template>
     <div

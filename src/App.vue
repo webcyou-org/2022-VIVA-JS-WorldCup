@@ -99,7 +99,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <GameHeader />
+    <GameHeader :score="state.score" />
     <div class="gameMainView">
         <GoalView />
         <FieldView />

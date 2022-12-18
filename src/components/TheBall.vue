@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const pos = defineProps({
-    x: Number,
-    y: Number,
-});
+const pos = defineProps<{
+    x: Number;
+    y: Number;
+}>();
 </script>
 <template>
     <div class="ball" :style="{ left: pos.x + 'px', top: pos.y + 'px' }"></div>

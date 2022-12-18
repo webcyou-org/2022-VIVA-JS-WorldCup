@@ -109,8 +109,8 @@ export class Ball {
         let isCollided: boolean = false;
         if (
             field.x > this.x + this.width ||
-            field.y > this.getMapY() ||
-            field.mapYBottomSide < this.getMapY() ||
+            field.y > this.mapY ||
+            field.mapYBottomSide < this.mapY ||
             field.maxX < this.x
         ) {
             isCollided = true;
@@ -133,11 +133,11 @@ export class Ball {
         return isGoal;
     }
 
-    getMapX() {
+    get mapX() {
         return Math.round(this.x + this.width / 2);
     }
 
-    getMapY() {
+    get mapY() {
         return Math.round(this.y + this.height / 2);
     }
 }
