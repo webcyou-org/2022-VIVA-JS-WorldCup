@@ -1,4 +1,4 @@
-import { GamePadCode } from "../constant/key";
+import { GamePadCode } from "../enums/key";
 interface GameKeyProps {
     code: number;
     key: string;

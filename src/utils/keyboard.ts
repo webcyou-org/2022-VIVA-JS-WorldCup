@@ -1,4 +1,4 @@
-import { KeyCode } from "../constant/key";
+import { KeyCode } from "../enums/key";
 
 interface KeyProps {
     code: string;
