@@ -265,8 +265,6 @@ export class Player {
             this.currentFrame = 1;
             this.frameCount = 1;
         }
-        // console.log(this.currentFrame);
-        console.log(this.frameCount);
     }
 
     ballRelease() {
