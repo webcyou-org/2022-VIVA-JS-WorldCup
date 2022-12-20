@@ -21,7 +21,7 @@ export class Player {
     public power: number = 1;
     public lastDirection: number = 0;
     public directionCommand: number[] = [];
-    public frameCount: number = 7;
+    public frameCount: number = 1;
     public currentFrame: number = 1;
     public isShoot: boolean = false;
     public isDash: boolean = false;
@@ -204,6 +204,8 @@ export class Player {
     }
 
     moveForwards(direction: number) {
+        this.incrementCurrentFrame();
+
         switch (direction) {
             case Direction.RIGHT:
                 this.x += this.speed;
@@ -253,6 +255,18 @@ export class Player {
                 this.ballRelease();
             }
         }
+    }
+
+    incrementCurrentFrame() {
+        this.currentFrame++;
+        this.frameCount = Math.ceil(this.currentFrame / 6);
+
+        if (this.frameCount > 2) {
+            this.currentFrame = 1;
+            this.frameCount = 1;
+        }
+        // console.log(this.currentFrame);
+        console.log(this.frameCount);
     }
 
     ballRelease() {

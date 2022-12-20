@@ -120,7 +120,9 @@ onMounted(() => {
         <PlayerView
             :x="state.player.x"
             :y="state.player.y"
+            :activeDirection="state.player.direction"
             :direction="state.player.lastDirection"
+            :frame="state.player.frameCount"
         />
         <BallView
             :x="state.balls[0].x"
